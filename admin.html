@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Gestión de Usuarios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input, button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Panel de Administración</h1>
+</header>
+
+<main>
+    <section>
+        <h2>Crear Usuario</h2>
+        <form id="createUserForm">
+            <input type="text" id="newUsername" placeholder="Nombre de Usuario" required>
+            <input type="password" id="newPassword" placeholder="Contraseña" required>
+            <input type="text" id="userPlate" placeholder="Placa Asignada" required>
+            <button type="submit">Crear Usuario</button>
+        </form>
+    </section>
+    <section>
+        <h2>Asignar Placa</h2>
+        <form id="assignPlateForm">
+            <input type="text" id="usernameForPlate" placeholder="Nombre de Usuario" required>
+            <input type="text" id="newPlate" placeholder="Nueva Placa" required>
+            <button type="submit">Asignar Placa</button>
+        </form>
+    </section>
+    <section>
+        <h2>Usuarios Registrados</h2>
+        <ul id="userList"></ul>
+    </section>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const createUserForm = document.getElementById('createUserForm');
+    const assignPlateForm = document.getElementById('assignPlateForm');
+    const userList = document.getElementById('userList');
+
+    // Mostrar lista de usuarios
+    function displayUsers() {
+        userList.innerHTML = '';
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        users.forEach(user => {
+            const li = document.createElement('li');
+            li.textContent = `${user.username} - Placa: ${user.plate}`;
+            userList.appendChild(li);
+        });
+    }
+
+    createUserForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.getElementById('newUsername').value;
+        const password = document.getElementById('newPassword').value;
+        const plate = document.getElementById('userPlate').value;
+
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        users.push({ username, password, plate });
+        localStorage.setItem('users', JSON.stringify(users));
+
+        alert('Usuario creado exitosamente.');
+        createUserForm.reset();
+        displayUsers();
+    });
+
+    assignPlateForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.getElementById('usernameForPlate').value;
+        const newPlate = document.getElementById('newPlate').value;
+
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(user => user.username === username);
+
+        if (user) {
+            user.plate = newPlate;
+            localStorage.setItem('users', JSON.stringify(users));
+            alert('Placa asignada exitosamente.');
+            assignPlateForm.reset();
+            displayUsers();
+        } else {
+            alert('Usuario no encontrado.');
+        }
+    });
+
+    // Mostrar usuarios al cargar la página
+    displayUsers();
+});
+</script>
+
+</body>
+</html>
