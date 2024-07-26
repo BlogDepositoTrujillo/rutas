@@ -3,84 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-            background-color: #f4f4f4;
+            padding: 0;
         }
-        .register-container {
-            background-color: white;
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .admin-container {
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
         }
-        .register-container h2 {
+        .admin-container h2 {
             margin-top: 0;
         }
-        .register-container label {
-            display: block;
-            margin-bottom: 8px;
-        }
-        .register-container input {
-            width: 100%;
+        .admin-container input[type="text"],
+        .admin-container input[type="password"],
+        .admin-container button {
             padding: 10px;
-            margin-bottom: 10px;
+            margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 5px;
-        }
-        .register-container button {
             width: 100%;
-            padding: 10px;
+        }
+        .admin-container button {
             background-color: #333;
             color: white;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
         }
-        .register-container button:hover {
+        .admin-container button:hover {
             background-color: #555;
         }
     </style>
 </head>
 <body>
 
-<div class="register-container">
-    <h2>Registro</h2>
-    <form id="registerForm">
-        <label for="username">Usuario</label>
-        <input type="text" id="username" name="username" required>
-        
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" name="password" required>
-        
-        <button type="submit">Registrar</button>
-    </form>
-    <p id="message"></p>
+<header>
+    <h1>Panel de Administración</h1>
+</header>
+
+<div class="admin-container">
+    <h2>Registro de Nuevos Usuarios</h2>
+    <input type="text" id="new-username" placeholder="Nombre de Usuario" />
+    <input type="password" id="new-password" placeholder="Contraseña" />
+    <button onclick="registerUser()">Registrar Usuario</button>
+
+    <h2>Gestión de Placas</h2>
+    <!-- Aquí puedes agregar la funcionalidad para gestionar placas -->
 </div>
 
 <script>
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+function registerUser() {
+    const newUsername = document.getElementById('new-username').value;
+    const newPassword = document.getElementById('new-password').value;
 
-    if (localStorage.getItem(username)) {
-        document.getElementById('message').textContent = 'El usuario ya existe';
+    // Aquí deberías manejar el registro de nuevos usuarios
+    // En un entorno real, esto implicaría almacenamiento en base de datos
+    if (newUsername && newPassword) {
+        // Simulación de registro
+        alert('Usuario registrado: ' + newUsername);
     } else {
-        localStorage.setItem(username, password);
-        document.getElementById('message').textContent = 'Registro exitoso';
-        setTimeout(() => {
-            window.location.href = 'login.html';
-        }, 2000); // Redirigir después de 2 segundos
+        alert('Por favor, ingrese nombre de usuario y contraseña.');
     }
-});
+}
 </script>
 
 </body>

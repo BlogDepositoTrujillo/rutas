@@ -93,6 +93,29 @@
         .nav-link.hidden {
             display: none;
         }
+        .admin-login {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .admin-login input[type="text"],
+        .admin-login input[type="password"] {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+        }
+        .admin-login button {
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .admin-login button:hover {
+            background-color: #555;
+        }
     </style>
 </head>
 <body>
@@ -131,6 +154,12 @@
             <button id="plate5">MNO345</button>
             <button id="plate6">PQR678</button>
         </div>
+    </section>
+    <section id="admin-login" class="admin-login">
+        <h2>Iniciar Sesión como Administrador</h2>
+        <input type="text" id="admin-username" placeholder="Nombre de Usuario" />
+        <input type="password" id="admin-password" placeholder="Contraseña" />
+        <button onclick="loginAsAdmin()">Iniciar Sesión como Administrador</button>
     </section>
     <section id="servicios">
         <h2>Servicios</h2>
@@ -209,6 +238,19 @@ function logout() {
     localStorage.removeItem('loggedInUser');
     localStorage.removeItem('userPhoto'); // Limpiar la foto del perfil
     window.location.href = 'login.html';
+}
+
+function loginAsAdmin() {
+    const username = document.getElementById('admin-username').value;
+    const password = document.getElementById('admin-password').value;
+
+    // Aquí deberías verificar las credenciales del administrador
+    // En un entorno real, esto implicaría una verificación más segura en el servidor
+    if (username === 'admin' && password === 'admin123') {
+        window.location.href = 'register.html'; // Redirigir a la página del administrador
+    } else {
+        alert('Credenciales incorrectas.');
+    }
 }
 </script>
 

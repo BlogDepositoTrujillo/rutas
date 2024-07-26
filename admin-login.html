@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
+    <title>Iniciar Sesión como Administrador</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
         body {
@@ -44,48 +44,32 @@
         .login-container button:hover {
             background-color: #555;
         }
-        .admin-login {
-            margin-top: 10px;
-        }
-        .admin-login a {
-            color: #333;
-            text-decoration: none;
-        }
-        .admin-login a:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
 
 <div class="login-container">
-    <h2>Iniciar Sesión</h2>
-    <input type="text" id="username" placeholder="Nombre de Usuario" />
-    <input type="password" id="password" placeholder="Contraseña" />
-    <button onclick="login()">Iniciar Sesión</button>
-    <div class="admin-login">
-        <a href="#" onclick="loginAsAdmin()">Iniciar Sesión como Administrador</a>
-    </div>
+    <h2>Iniciar Sesión como Administrador</h2>
+    <input type="text" id="admin-username" placeholder="Nombre de Usuario" />
+    <input type="password" id="admin-password" placeholder="Contraseña" />
+    <button onclick="loginAsAdmin()">Iniciar Sesión</button>
 </div>
 
 <script>
-function login() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    // Aquí deberías validar el nombre de usuario y la contraseña
-    // En un entorno real, esto implicaría una verificación más segura en el servidor
-    if (username && password) {
-        localStorage.setItem('loggedInUser', username);
-        window.location.href = 'index.html';
-    } else {
-        alert('Por favor, ingrese nombre de usuario y contraseña.');
-    }
-}
-
 function loginAsAdmin() {
-    // Redirigir al usuario a la página de administrador
-    window.location.href = 'admin-login.html'; // Página de administrador
+    const adminUsername = document.getElementById('admin-username').value;
+    const adminPassword = document.getElementById('admin-password').value;
+
+    // Credenciales predefinidas para el administrador
+    const validUsername = 'admin';
+    const validPassword = 'admin123';
+
+    if (adminUsername === validUsername && adminPassword === validPassword) {
+        // Redirige al administrador a la página de administración
+        window.location.href = 'register.html'; // Página donde el administrador puede gestionar usuarios
+    } else {
+        alert('Credenciales de administrador incorrectas.');
+    }
 }
 </script>
 
